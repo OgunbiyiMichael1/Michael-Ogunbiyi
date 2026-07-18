@@ -229,29 +229,31 @@
             scroll-behavior: smooth;
         }
 
-        @media (min-width: 768px) and (max-width: 1023px) {
-            .skills-track {
-                scroll-snap-type: x mandatory;
-                scroll-padding-left: 0px;
-                -webkit-overflow-scrolling: touch;
-            }
-            .skills-track::-webkit-scrollbar {
-                height: 6px;
-            }
-            .skills-track::-webkit-scrollbar-track {
-                background: transparent;
-            }
-            .skills-track::-webkit-scrollbar-thumb {
-                background: linear-gradient(135deg, #6366f1, #ec4899);
-                border-radius: 999px;
-            }
-            .skills-track > * {
-                scroll-snap-align: start;
-            }
-            .skills-track > *:first-child {
-                scroll-snap-align: start;
-            }
-        }
+        @media (max-width:1023px) {
+
+.skills-track{
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+}
+
+.skills-track::-webkit-scrollbar{
+    height:8px;
+}
+
+.skills-track::-webkit-scrollbar-thumb{
+    background:#94a3b8;
+    border-radius:9999px;
+}
+
+.skills-track::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+.skills-track > div{
+    scroll-snap-align:start;
+}
+
+}
 
         /* Project modal */
         .modal {
@@ -434,121 +436,142 @@
             </div>
             
             <p class="hidden md:block lg:hidden text-center text-sm text-slate-500 dark:text-slate-400 mb-4">Swipe to see more →</p>
-            <div class="skills-track flex flex-col gap-6 sm:grid sm:grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0">
-                <!-- HTML -->
-                <div class="reveal stagger-1 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <img src="html icon.png" alt="HTMl">
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">HTML5</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Semantic markup, accessibility, SEO best practices</p>
-                    
-                </div>
-                
-                <!-- CSS -->
-                <div class="reveal stagger-2 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <img src="css icon.png" alt="CSS">
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">CSS3</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Flexbox, Grid, animations, responsive design</p>
-                    
-                </div>
-                
-                <!-- JavaScript -->
-                <div class="reveal stagger-3 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <img src="javascript icon.png" alt="JavaScript">
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">JavaScript</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Async/await, fetch API, DOM manipulation, ES6+</p>
-                    
-                </div>
-                
-                <!-- Tailwind CSS -->
-                <div class="reveal stagger-4 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-cyan-100 dark:bg-cyan-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <img src="tailwind css icon.png" alt="Tailwind CSS">
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Tailwind CSS</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Utility-first styling, dark mode, responsive design</p>
-                    
-                </div>
+            <div class="skills-track flex flex-row overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scroll-smooth lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0">
 
-                <!-- React -->
-                <div class="reveal stagger-5 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-sky-100 dark:bg-sky-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <svg viewBox="0 0 24 24" class="w-9 h-9" fill="#0ea5e9">
-                            <circle cx="12" cy="12" r="2.2"/>
-                            <g fill="none" stroke="#0ea5e9" stroke-width="1"><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/></g>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">React</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Component architecture, hooks, state management</p>
-                    
-                </div>
-
-                <!-- Node.js -->
-                <div class="reveal stagger-1 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <img src="node.png" alt="">
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Node.js</h3>
-                    <p class="text-slate-600 dark:text-slate-400">REST APIs, server-side logic, Express.js, middleware</p>
-                    
-                </div>
-
-                <!-- SQL -->
-                <div class="reveal stagger-2 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <svg viewBox="0 0 24 24" class="w-9 h-9" fill="none" stroke="#6366f1" stroke-width="1.6">
-                            <ellipse cx="12" cy="5" rx="8" ry="3"/>
-                            <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
-                            <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">SQL</h3>
-                    <p class="text-slate-600 dark:text-slate-400">PostgreSQL, relational databases, joins, schema design</p>
-                    
-                </div>
-
-                <!-- Express.js -->
-                <div class="reveal stagger-3 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <img src="express.jpg" alt="">
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Express.js</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Route handling, middleware, authentication, MVC structure</p>
-                    
-                </div>
-
-                <!-- Git -->
-                <div class="reveal stagger-4 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                    <div class="w-16 h-16 bg-gray-100 dark:bg-gray-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        <img src="git.png" alt="">
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Git & GitHub</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Version control, branching, merging, collaboration</p>   
-            </div>
-
-            <!--Jwt Authentication-->
-            <div class="reveal stagger-5 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                    <img src="jwt.png" alt="">
-                </div>
-                <h3 class="text-xl font-bold mb-2">JWT Authentication</h3>
-                <p class="text-slate-600 dark:text-slate-400">Token-based authentication, cookies, protected routes, bcrypt</p>
-
-            </div>
-
-            <!--Cloudinary-->
-            <div class="reveal stagger-6 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
-                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                    <img src="cloudinary.png" alt="">
-                </div>
-                <h3 class="text-xl font-bold mb-2">Cloudinary</h3>
-                <p class="text-slate-600 dark:text-slate-400">Image and video management, file uploads, cloud storage, CDN delivery</p>
+    <!-- HTML -->
+    <div class="reveal stagger-1 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="html icon.png" alt="HTML">
         </div>
+        <h3 class="text-xl font-bold mb-2">HTML5</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Semantic markup, accessibility, SEO best practices
+        </p>
+    </div>
+
+    <!-- CSS -->
+    <div class="reveal stagger-2 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="css icon.png" alt="CSS">
+        </div>
+        <h3 class="text-xl font-bold mb-2">CSS3</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Flexbox, Grid, animations, responsive design
+        </p>
+    </div>
+
+    <!-- JavaScript -->
+    <div class="reveal stagger-3 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="javascript icon.png" alt="JavaScript">
+        </div>
+        <h3 class="text-xl font-bold mb-2">JavaScript</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Async/await, fetch API, DOM manipulation, ES6+
+        </p>
+    </div>
+
+    <!-- Tailwind CSS -->
+    <div class="reveal stagger-4 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-cyan-100 dark:bg-cyan-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="tailwind css icon.png" alt="Tailwind CSS">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Tailwind CSS</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Utility-first styling, dark mode, responsive design
+        </p>
+    </div>
+
+    <!-- React -->
+    <div class="reveal stagger-5 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-sky-100 dark:bg-sky-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <svg viewBox="0 0 24 24" class="w-9 h-9" fill="#0ea5e9">
+                <circle cx="12" cy="12" r="2.2"/>
+                <g fill="none" stroke="#0ea5e9" stroke-width="1">
+                    <ellipse cx="12" cy="12" rx="10" ry="4.2"/>
+                    <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/>
+                    <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/>
+                </g>
+            </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-2">React</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Component architecture, hooks, state management
+        </p>
+    </div>
+
+    <!-- Node.js -->
+    <div class="reveal stagger-1 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="node.png" alt="Node.js">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Node.js</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            REST APIs, server-side logic, Express.js, middleware
+        </p>
+    </div>
+
+    <!-- SQL -->
+    <div class="reveal stagger-2 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <svg viewBox="0 0 24 24" class="w-9 h-9" fill="none" stroke="#6366f1" stroke-width="1.6">
+                <ellipse cx="12" cy="5" rx="8" ry="3"/>
+                <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
+                <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/>
+            </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-2">SQL</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            PostgreSQL, relational databases, joins, schema design
+        </p>
+    </div>
+
+    <!-- Express.js -->
+    <div class="reveal stagger-3 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="express.jpg" alt="Express.js">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Express.js</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Route handling, middleware, authentication, MVC structure
+        </p>
+    </div>
+
+    <!-- Git -->
+    <div class="reveal stagger-4 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-gray-100 dark:bg-gray-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="git.png" alt="Git">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Git & GitHub</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Version control, branching, merging, collaboration
+        </p>
+    </div>
+
+    <!-- JWT Authentication -->
+    <div class="reveal stagger-5 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="jwt.png" alt="JWT Authentication">
+        </div>
+        <h3 class="text-xl font-bold mb-2">JWT Authentication</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Token-based authentication, cookies, protected routes, bcrypt
+        </p>
+    </div>
+
+    <!-- Cloudinary -->
+    <div class="reveal stagger-6 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group min-w-[240px] w-60 shrink-0 snap-start lg:w-auto lg:min-w-0 lg:shrink">
+        <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <img src="cloudinary.png" alt="Cloudinary">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Cloudinary</h3>
+        <p class="text-slate-600 dark:text-slate-400">
+            Image and video management, file uploads, cloud storage, CDN delivery
+        </p>
+    </div>
+
+</div>
+
     </section>
 
     <!-- Projects Section -->
