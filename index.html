@@ -325,7 +325,7 @@
 
     <!-- Hero Section -->
     
-    <section id="home" class="min-h-screen relative flex items-center justify-center overflow-hidden pt-20">
+    <section id="home" class="min-h-screen relative flex items-center justify-center overflow-y-visible pt-20">
     <!-- Background Image -->
     <div class="absolute inset-0 z-0">
         <!-- ADJUSTMENT: Lowered light mode brightness to 60% so high-contrast text stands out cleanly against raw image lines -->
@@ -371,10 +371,61 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
             </a>
-            <!-- ADJUSTMENT: Switched to an explicit white fill (bg-white/80) with a firm border to keep the element perfectly distinct -->
-            <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 bg-white/80 dark:bg-white/10 text-slate-900 dark:text-white font-bold rounded-xl border border-slate-900/25 dark:border-white/30 hover:bg-white/95 dark:hover:bg-white/20 hover:-translate-y-1 transition-all shadow-sm">
-                Get In Touch
+           
+
+               <div class="relative inline-block">
+
+                 <!-- Contact Button -->
+                <button id="contactBtn"
+               class="inline-flex items-center gap-2 px-8 py-4 bg-white/80 dark:bg-white/10 text-slate-900 dark:text-white font-bold rounded-xl border border-slate-900/25 dark:border-white/30 hover:bg-white/95 dark:hover:bg-white/20 hover:-translate-y-1 transition-all shadow-sm">
+                Contact Me
+
+               <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 transition-transform"
+              id="arrow"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"/>
+           </svg>
+            </button>
+
+         <!-- Dropdown -->
+           <div id="contactMenu"
+          class="hidden absolute left-1/2 -translate-x-1/2 mt-3 w-64 max-w-[90vw] bg-white/80 dark:bg-white/10 text-slate-900 dark:text-white font-bold rounded-xl border border-slate-900/25 dark:border-white/30 hover:bg-white/95 dark:hover:bg-white/20 hover:-translate-y-1 transition-all shadow-sm">
+
+        <!-- Contact Form -->
+        <a href="#contact"
+            class="flex items-center gap-3 px-5 py-4 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+
+            <span class="text-xl">📩</span>
+
+            <div>
+                <p class="font-semibold">Contact Form</p>
+                <p class="text-sm text-slate-800 dark:text-slate-400">Send me a message</p>
+            </div>
+
+        </a>
+
+        <!-- Phone -->
+        <a href="tel:+2349035987982"
+            class="flex items-center gap-3 px-5 py-4 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+
+            <span class="text-xl">📞</span>
+
+            <div>
+                <p class="font-semibold">Call Me</p>
+                <p class="text-sm text-slate-800 dark:text-slate-400">+234 903 598 7982</p>
+            </div>
+
             </a>
+
+              </div>
+
+</div>
         </div>
     </div>
 </section>
@@ -597,8 +648,9 @@
                             <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-xs font-medium rounded-full">JavaScript</span>
                             <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">Tailwind</span>
                             <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs font-medium rounded-full">NodeJS</span>
-                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full">PostgreSQL</span>
                         </div>
+                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full">PostgreSQL</span>
+                        
                         <h3 class="text-xl font-bold mb-2">TalentLink</h3>
                         <p class="text-slate-600 dark:text-slate-400 mb-4">TalentLink is a talent-matching platform that connects skilled professionals with people looking to hire them.</p>
                         <div class="flex gap-3">
@@ -1329,6 +1381,22 @@
 
         let currentYear = new Date().getFullYear();
         document.getElementById('currentYear').textContent = currentYear;
+
+        const contactBtn = document.getElementById("contactBtn");
+const contactMenu = document.getElementById("contactMenu");
+const arrow = document.getElementById("arrow");
+
+contactBtn.addEventListener("click", () => {
+    contactMenu.classList.toggle("hidden");
+    arrow.classList.toggle("rotate-180");
+});
+
+document.addEventListener("click", (e) => {
+    if (!contactBtn.contains(e.target) && !contactMenu.contains(e.target)) {
+        contactMenu.classList.add("hidden");
+        arrow.classList.remove("rotate-180");
+    }
+});
     </script>
 </body>
 </html>
