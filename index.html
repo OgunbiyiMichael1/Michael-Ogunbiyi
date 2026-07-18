@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Ogunbiyi | Frontend Developer</title>
+    <meta name="description" content="Michael Ogunbiyi - Frontend Developer specializing in HTML, CSS, JavaScript, React, Node.js, SQL, and Tailwind CSS">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#ec4899',
+                        accent: '#06b6d4',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom styles beyond Tailwind */
+        body{
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+        }
+        
+        .gradient-border {
+            position: relative;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        /* Hero particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* FAQ Accordion */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile Menu */
+        .nav-links.active {
+            display: flex !important;
+        }
+
+        /* Portfolio card hover */
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Form styles */
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group.error .form-input,
+        .form-group.error .form-textarea {
+            border-color: #ef4444;
+        }
+
+        .form-error {
+            display: none;
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading spinner */
+        .btn-spinner {
+            display: none;
+        }
+
+        .btn-submit.loading .btn-spinner {
+            display: block;
+        }
+
+        .btn-submit.loading .btn-text {
+            opacity: 0;
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Mobile menu - sliding sidebar */
+        .nav-links {
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (max-width: 767px) {
+            .nav-links {
+                display: flex !important;
+                transform: translateX(100%);
+                z-index: 50;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+        }
+
+        .mobile-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(24px);
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Skills carousel - medium screens only (display switching is handled by Tailwind utility classes) */
+        .skills-track {
+            scroll-behavior: smooth;
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .skills-track {
+                scroll-snap-type: x mandatory;
+                scroll-padding-left: 0px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .skills-track::-webkit-scrollbar {
+                height: 6px;
+            }
+            .skills-track::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .skills-track::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #6366f1, #ec4899);
+                border-radius: 999px;
+            }
+            .skills-track > * {
+                scroll-snap-align: start;
+            }
+            .skills-track > *:first-child {
+                scroll-snap-align: start;
+            }
+        }
+
+        /* Project modal */
+        .modal {
+            display: none;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        /* Coming-soon project placeholder */
+        .placeholder-shot {
+            background-image:
+                radial-gradient(circle at 15% 20%, rgba(255,255,255,0.14), transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(255,255,255,0.10), transparent 45%);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
+    
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 dark:border-slate-800 transition-all duration-300">
+        <div class="absolute inset-0 -z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl"></div>
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold gradient-text flex items-center gap-2 shrink-0">
+                <span class="gradient-bg rounded-xl w-10 h-10 flex items-center justify-center text-black dark:text-white text-lg overflow-hidden"><img src="mike logo.png" alt="Michael Ogunbiyi" class="w-full h-full object-cover"></span>
+            </a>
+            
+            <!-- Desktop Nav Links -->
+            <ul id="navLinks" class="nav-links hidden md:flex md:static md:items-center md:bg-transparent md:dark:bg-transparent md:border-none md:shadow-none md:translate-x-0 md:backdrop-blur-none md:w-auto md:h-auto md:max-w-none fixed top-0 right-0 h-full w-72 max-w-[80%] bg-gray-100 dark:bg-black border-l border-slate-300/60 dark:border-slate-700/60 shadow-2xl p-6 pt-24 md:p-0 md:pt-0 flex-col md:flex-row gap-2 md:gap-8">
+                <button id="closeMobileMenu" class="md:hidden absolute top-5 right-5 w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center" aria-label="Close menu">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                <li><a href="#home" class="nav-link active text-black dark:text-white hover:text-primary dark:hover:text-primary font-medium transition-colors relative py-2 block" data-section="home">Home</a></li>
+                <li><a href="#about" class="nav-link text-black dark:text-white hover:text-primary dark:hover:text-primary font-medium transition-colors relative py-2 block" data-section="about">About</a></li>
+                <li><a href="#skills" class="nav-link text-black dark:text-white hover:text-primary dark:hover:text-primary font-medium transition-colors relative py-2 block" data-section="skills">Skills</a></li>
+                <li><a href="#projects" class="nav-link text-black dark:text-white hover:text-primary dark:hover:text-primary font-medium transition-colors relative py-2 block" data-section="projects">Projects</a></li>
+                <li><a href="#faq" class="nav-link text-black dark:text-white hover:text-primary dark:hover:text-primary font-medium transition-colors relative py-2 block" data-section="faq">FAQ</a></li>
+                <li><a href="#contact" class="nav-link text-black dark:text-white hover:text-primary dark:hover:text-primary font-medium transition-colors relative py-2 block" data-section="contact">Contact</a></li>
+            </ul>
+
+            <!-- Mobile overlay -->
+            <div id="mobileOverlay" class="mobile-overlay fixed inset-0 bg-gray-500/60 dark:bg-black/80 backdrop-blur-xl z-40 md:hidden"></div>
+            
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all hover:rotate-12" aria-label="Toggle dark mode">
+                    <!-- Sun icon -->
+                    <svg class="sun-icon hidden dark:block w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <!-- Moon icon -->
+                    <svg class="moon-icon block dark:hidden w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 flex flex-col items-center justify-center gap-1.5" aria-label="Toggle mobile menu">
+                    <span class="w-5 h-0.5 bg-slate-700 dark:bg-slate-300 transition-all duration-300 origin-center" ></span>
+                    <span class="w-5 h-0.5 bg-slate-700 dark:bg-slate-300 transition-all duration-300"></span>
+                    <span class="w-5 h-0.5 bg-slate-700 dark:bg-slate-300 transition-all duration-300 origin-center"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    
+    <section id="home" class="min-h-screen relative flex items-center justify-center overflow-hidden pt-20">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+        <!-- ADJUSTMENT: Lowered light mode brightness to 60% so high-contrast text stands out cleanly against raw image lines -->
+        <img src="coding workspace.avif" alt="Coding workspace" class="w-full h-full object-cover brightness-5 dark:brightness-[0.35]">
+    </div>
+    
+    <!-- Gradient Overlay -->
+    <!-- Removed backdrop-blur-md, kept bg-white/10 -->
+    <div class="absolute inset-0 z-1 bg-white/5 dark:bg-transparent"></div>
+    <!-- ADJUSTMENT: Slightly increased the color opacities to weave a richer color tint that dampens harsh background image lines -->
+    <div class="absolute inset-0 z-1 bg-gradient-to-br from-indigo-800/25 via-purple-800/20 to-cyan-700/15 dark:from-indigo-600/30 dark:via-purple-600/20 dark:to-cyan-600/10"></div>
+    
+    <!-- Particles -->
+    <div id="heroParticles" class="absolute inset-0 z-[2] overflow-hidden pointer-events-none"></div>
+    
+    <!-- Content -->
+    <div class="relative z-[3] text-center px-6 max-w-4xl mx-auto">
+        <!-- ADJUSTMENT: Solidified the badge background to bg-white/80 in light mode so it anchors beautifully over the raw image -->
+        <div class="reveal inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-white/10 rounded-full text-slate-900 dark:text-white/90 text-sm sm:text-base font-bold mb-6 border border-slate-900/20 dark:border-white/20 shadow-sm">
+            <span class="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full animate-pulse"></span>
+            Available for freelance work
+        </div>
+        
+        <!-- ADJUSTMENT: Added drop-shadow-sm to text-slate-950 to separate the lettering from image details underneath -->
+        <h1 class="reveal stagger-1 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white/100 dark:text-white mb-6 leading-tight drop-shadow-sm">
+            Hi, I'm <span class="bg-gradient-to-r from-indigo-800 via-purple-700 to-pink-700 dark:from-white dark:via-indigo-200 dark:to-pink-200 bg-clip-text text-transparent">Michael</span>
+        </h1>
+        
+        <!-- ADJUSTMENT: Bumped up to font-black and text-slate-950 for absolute maximum punch -->
+        <p class="reveal stagger-2 text-xl sm:text-2xl font-black text-white/100 dark:text-white/80 mb-4 max-w-2xl mx-auto drop-shadow-sm">
+            Frontend Developer crafting beautiful, responsive, and user-friendly web experiences
+        </p>
+        
+        <!-- ADJUSTMENT: Shifted to deep text-slate-900 to ensure readability of the bulleted tech items -->
+        <p class="reveal stagger-3 text-base sm:text-lg font-extrabold text-white/100 dark:text-white/60 mb-8 tracking-wide drop-shadow-sm">
+            HTML • CSS • JavaScript • React • Tailwind CSS
+        </p>
+        
+        <div class="reveal stagger-4 flex flex-wrap gap-4 justify-center">
+            <a href="#projects" class="inline-flex items-center gap-2 px-8 py-4 gradient-bg text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-indigo-500/30 hover:-translate-y-1 transition-all">
+                View My Work
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
+            <!-- ADJUSTMENT: Switched to an explicit white fill (bg-white/80) with a firm border to keep the element perfectly distinct -->
+            <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 bg-white/80 dark:bg-white/10 text-slate-900 dark:text-white font-bold rounded-xl border border-slate-900/25 dark:border-white/30 hover:bg-white/95 dark:hover:bg-white/20 hover:-translate-y-1 transition-all shadow-sm">
+                Get In Touch
+            </a>
+        </div>
+    </div>
+</section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 sm:py-28 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Image -->
+                <div class="reveal-left relative">
+                    <div class="absolute -top-6 -left-6 w-48 h-48 bg-gradient-to-br from-indigo-500/20 to-pink-500/20 rounded-3xl -z-10"></div>
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="caricature.jpeg" alt="Michael Ogunbiyi" class="w-full h-auto">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-pink-500/20 to-cyan-500/20 rounded-3xl -z-10"></div>
+                </div>
+                
+                <!-- Content -->
+                <div class="reveal-right">
+                    <span class="inline-block px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-primary text-sm font-semibold rounded-full mb-4">About Me</span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">Passionate about creating <span class="gradient-text">amazing web experiences</span></h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-6">
+                        I'm a frontend developer with a passion for building clean, modern, and responsive websites. I love turning ideas into reality through code and creating user interfaces that are both beautiful and functional.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-8">
+                        My journey started with HTML and CSS, and I've since expanded my skills to include JavaScript, React, and modern frameworks. I believe in writing clean, maintainable code and staying up-to-date with the latest web technologies.
+                    </p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 gradient-bg rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                            <span class="font-medium">Clean Code</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 gradient-bg rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                            <span class="font-medium">Responsive Design</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 gradient-bg rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                            <span class="font-medium">Cross-Browser Compatible</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 gradient-bg rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                            <span class="font-medium">Performance Optimized</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 sm:py-28 px-6 bg-slate-50 dark:bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="inline-block px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-primary text-sm font-semibold rounded-full mb-4">My Skills</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Technologies I <span class="gradient-text">Work With</span></h2>
+                <p class="text-slate-600 dark:text-slate-300 text-lg">I specialize in modern frontend technologies to build fast, responsive, and user-friendly websites.</p>
+            </div>
+            
+            <p class="hidden md:block lg:hidden text-center text-sm text-slate-500 dark:text-slate-400 mb-4">Swipe to see more →</p>
+            <div class="skills-track flex flex-col gap-6 sm:grid sm:grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0">
+                <!-- HTML -->
+                <div class="reveal stagger-1 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
+                    <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <img src="html icon.png" alt="HTMl">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">HTML5</h3>
+                    <p class="text-slate-600 dark:text-slate-400">Semantic markup, accessibility, SEO best practices</p>
+                    
+                </div>
+                
+                <!-- CSS -->
+                <div class="reveal stagger-2 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <img src="css icon.png" alt="CSS">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">CSS3</h3>
+                    <p class="text-slate-600 dark:text-slate-400">Flexbox, Grid, animations, responsive design</p>
+                    
+                </div>
+                
+                <!-- JavaScript -->
+                <div class="reveal stagger-3 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
+                    <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <img src="javascript icon.png" alt="JavaScript">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">JavaScript</h3>
+                    <p class="text-slate-600 dark:text-slate-400">ES6+, DOM manipulation</p>
+                    
+                </div>
+                
+                <!-- Tailwind CSS -->
+                <div class="reveal stagger-4 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
+                    <div class="w-16 h-16 bg-cyan-100 dark:bg-cyan-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <img src="tailwind css icon.png" alt="Tailwind CSS">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Tailwind CSS</h3>
+                    <p class="text-slate-600 dark:text-slate-400">Utility-first styling, custom configurations</p>
+                    
+                </div>
+
+                <!-- React -->
+                <div class="reveal stagger-5 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
+                    <div class="w-16 h-16 bg-sky-100 dark:bg-sky-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg viewBox="0 0 24 24" class="w-9 h-9" fill="#0ea5e9">
+                            <circle cx="12" cy="12" r="2.2"/>
+                            <g fill="none" stroke="#0ea5e9" stroke-width="1"><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/></g>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">React</h3>
+                    <p class="text-slate-600 dark:text-slate-400">Component architecture, hooks, state management</p>
+                    
+                </div>
+
+                <!-- Node.js -->
+                <div class="reveal stagger-1 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
+                    <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg viewBox="0 0 24 24" class="w-9 h-9" fill="#16a34a">
+                            <path d="M12 1.85c-.27 0-.53.07-.76.2l-8.44 4.88c-.47.27-.76.78-.76 1.32v9.75c0 .54.29 1.05.76 1.32l2.22 1.28c1.08.53 1.46.53 1.96.53 1.6 0 2.52-.97 2.52-2.65V8.88c0-.13-.11-.24-.24-.24H8.5c-.13 0-.24.1-.24.24v9.6c0 .75-.77 1.49-2.03.86L4 18.05a.26.26 0 01-.13-.22V8.08c0-.09.05-.18.13-.22l8.44-4.87a.25.25 0 01.25 0l8.44 4.87c.08.04.13.13.13.22v9.75c0 .09-.05.17-.13.22l-8.44 4.88a.25.25 0 01-.25 0l-2.16-1.28c-.07-.04-.15-.04-.21 0-.6.34-.71.39-1.27.58-.14.05-.34.12.08.35l2.82 1.67c.24.14.5.21.77.21s.53-.07.76-.2l8.44-4.88c.47-.27.76-.78.76-1.32V8.25c0-.54-.29-1.05-.76-1.32l-8.44-4.88a1.52 1.52 0 00-.76-.2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Node.js</h3>
+                    <p class="text-slate-600 dark:text-slate-400">REST APIs, server-side logic, Express</p>
+                    
+                </div>
+
+                <!-- SQL -->
+                <div class="reveal stagger-2 bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:-translate-y-2 transition-all group md:min-w-[260px] md:w-64 md:shrink-0 lg:w-auto lg:min-w-0">
+                    <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg viewBox="0 0 24 24" class="w-9 h-9" fill="none" stroke="#6366f1" stroke-width="1.6">
+                            <ellipse cx="12" cy="5" rx="8" ry="3"/>
+                            <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
+                            <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">SQL</h3>
+                    <p class="text-slate-600 dark:text-slate-400">Relational databases, queries, schema design</p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 sm:py-28 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="inline-block px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-primary text-sm font-semibold rounded-full mb-4">My Projects</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Featured <span class="gradient-text">Work</span></h2>
+                <p class="text-slate-600 dark:text-slate-300 text-lg">Here are some of my recent projects. Click to view screenshots or visit the live site.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Project 1: TalentLink -->
+                <div class="reveal stagger-1 bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all group">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="talentlink.png" alt="TalentLink" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="px-3 py-1 bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 text-xs font-medium rounded-full">HTML</span>
+                            <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-xs font-medium rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">Tailwind</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">TalentLink</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">TalentLink is a talent-matching platform that connects skilled professionals with people looking to hire them.</p>
+                        <div class="flex gap-3">
+                            <button onclick="openScreenshot('talentlink.png', 'TalentLink')" class="flex-1 px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Screenshot
+                            </button>
+                            <a href="#" target="_blank" class="flex-1 px-4 py-2.5 gradient-bg text-white font-medium rounded-lg hover:shadow-lg hover:shadow-indigo-500/30 transition-all flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                View Project
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Catering Website (add screenshot + live link) -->
+                <div class="reveal stagger-2 bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all group">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="waltop.png" alt="Waltop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-primary text-xs font-medium rounded-full">HTML</span>
+                            <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-xs font-medium rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">Tailwind</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Catering Website</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">Created an elegant, mobile-friendly catering website to showcase premium event services, with a menu gallery, service packages, and an intuitive booking/inquiry flow built around high-quality food photography.</p>
+                        <div class="flex gap-3">
+                            <button onclick="openScreenshot('catering.png', 'Catering Website')" class="flex-1 px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Screenshot
+                            </button>
+                            <a href="#" target="_blank" class="flex-1 px-4 py-2.5 gradient-bg text-white font-medium rounded-lg hover:shadow-lg hover:shadow-indigo-500/30 transition-all flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                View Project
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Meat Selling Website (add screenshot + live link) -->
+                <div class="reveal stagger-3 bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all group">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="harrys food.png" alt="Harry's Food" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-primary text-xs font-medium rounded-full">HTML</span>
+                            <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-xs font-medium rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">Tailwind</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Meat Selling Website</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">Built an online storefront for a meat and butchery business, with categorized product listings, cart-ready product cards, and a clean checkout-style layout designed for quick, trustworthy ordering.</p>
+                        <div class="flex gap-3">
+                            <button onclick="openScreenshot('meatshop.png', 'Meat Selling Website')" class="flex-1 px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Screenshot
+                            </button>
+                            <a href="#" target="_blank" class="flex-1 px-4 py-2.5 gradient-bg text-white font-medium rounded-lg hover:shadow-lg hover:shadow-indigo-500/30 transition-all flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                View Project
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4: Luxury Car Selling Website -->
+                <div class="reveal stagger-2 bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all group">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="luxdrive.png" alt="Luxury Car Selling Website" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-xs font-medium rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">Tailwind</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Luxury Car Selling Website</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">A luxury car selling website with a modern design and seamless user experience.</p>
+                        <div class="flex gap-3">
+                            <button onclick="openScreenshot('luxdrive.png', 'Luxury Car Selling Website')" class="flex-1 px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Screenshot
+                            </button>
+                            <a href="https://lux-drive-mauve.vercel.app" target="_blank" class="flex-1 px-4 py-2.5 gradient-bg text-white font-medium rounded-lg hover:shadow-lg hover:shadow-indigo-500/30 transition-all flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                View Project
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Project 5: Gadget Selling Website-->
+                <div class="reveal stagger-1 bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all group">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="mozgadget.png" alt="Gadget Selling website" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-primary text-xs font-medium rounded-full">HTML</span>
+                            <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">Tailwind</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Gadget Selling Website</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">MozGadget is a responsive e-commerce storefront for tech enthusiasts.Built with Html, Tailwind CSS and vanilla
+                            Javascript, it features a custom, dynamic filtering engine and a fluid user interface designed for seamless navigation.</p>
+                        <div class="flex gap-3">
+                            <button onclick="openScreenshot('mozgadget.png', 'Gadgets selling website')" class="flex-1 px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Screenshot
+                            </button>
+                            <a href="https://mozgadgets.vercel.app" target="_blank" class="flex-1 px-4 py-2.5 gradient-bg text-white font-medium rounded-lg hover:shadow-lg hover:shadow-indigo-500/30 transition-all flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                View Project
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshot Modal -->
+    <div id="screenshotModal" class="modal fixed inset-0 z-[100] bg-black/90 items-center justify-center p-4">
+        <div class="relative max-w-5xl w-full">
+            <button onclick="closeScreenshot()" class="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <h3 id="modalTitle" class="text-white text-xl font-bold mb-4"></h3>
+            <img id="modalImage" src="" alt="Project Screenshot" class="w-full rounded-xl shadow-2xl">
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 sm:py-28 px-6 bg-slate-50 dark:bg-slate-800/50">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-primary text-sm font-semibold rounded-full mb-4">FAQ</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Frequently Asked <span class="gradient-text">Questions</span></h2>
+                <p class="text-slate-600 dark:text-slate-300 text-lg">Have questions? I've got answers. Click to expand.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <button class="faq-question w-full px-6 py-5 flex items-center justify-between text-left">
+                        <span class="font-semibold text-lg pr-4">What technologies do you specialize in?</span>
+                        <span class="faq-icon w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                            I specialize in core frontend technologies: HTML5, CSS3, JavaScript (ES6+), React, and Tailwind CSS. I focus on writing clean, semantic HTML, modern CSS with Flexbox and Grid, and component-driven interfaces with React when a project calls for more interactivity and state. This approach ensures fast, lightweight, and maintainable websites.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <button class="faq-question w-full px-6 py-5 flex items-center justify-between text-left">
+                        <span class="font-semibold text-lg pr-4">How long does a typical project take?</span>
+                        <span class="faq-icon w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Project timelines vary based on complexity. A simple landing page might take 3-5 days, while a multi-page website with animations and interactions could take 2-3 weeks. I always provide a detailed timeline during our initial discussion and keep you updated throughout the process.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <button class="faq-question w-full px-6 py-5 flex items-center justify-between text-left">
+                        <span class="font-semibold text-lg pr-4">Do you work with design files?</span>
+                        <span class="faq-icon w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Absolutely! I can work with Figma, Adobe XD, Sketch, or even Photoshop files. I pay close attention to details like spacing, typography, colors, and interactions to ensure the final website matches your design perfectly. I also provide suggestions for improvements if needed.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <button class="faq-question w-full px-6 py-5 flex items-center justify-between text-left">
+                        <span class="font-semibold text-lg pr-4">Are your websites responsive?</span>
+                        <span class="faq-icon w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Yes, absolutely! Every website I build is fully responsive and works perfectly on all devices - from large desktop screens to tablets and mobile phones. I use a mobile-first approach with Tailwind CSS to ensure optimal viewing experience across all screen sizes.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 5 -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <button class="faq-question w-full px-6 py-5 flex items-center justify-between text-left">
+                        <span class="font-semibold text-lg pr-4">What is your pricing structure?</span>
+                        <span class="faq-icon w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                            I offer project-based pricing depending on the scope and complexity of your requirements. Simple landing pages start at $500, while full multi-page websites typically range from $1,500 to $5,000. Contact me with your project details for a custom quote!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 sm:py-28 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="inline-block px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-primary text-sm font-semibold rounded-full mb-4">Get In Touch</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Let's Work <span class="gradient-text">Together</span></h2>
+                <p class="text-slate-600 dark:text-slate-300 text-lg">Have a project in mind? I'd love to hear from you. Send me a message!</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Contact Info -->
+                <div class="lg:col-span-1 space-y-6 reveal-left">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center text-2xl mb-4">📧</div>
+                        <h4 class="font-bold mb-1">Email</h4>
+                        <a href="mailto:mogunbiyi2010@gmail.com" class="text-primary hover:underline text-slate-600 dark:text-slate-400">mogunbiyi2010@gmail.com</a>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="w-12 h-12 bg-pink-100 dark:bg-pink-900/30 rounded-xl flex items-center justify-center text-2xl mb-4">📍</div>
+                        <h4 class="font-bold mb-1">Location</h4>
+                        <p class="text-slate-600 dark:text-slate-400">Lagos, Nigeria</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="w-12 h-12 bg-cyan-100 dark:bg-cyan-900/30 rounded-xl flex items-center justify-center text-2xl mb-4">🌐</div>
+                        <h4 class="font-bold mb-1">Social</h4>
+                        <div class="flex gap-3 mt-3">
+                            <a href="https://wa.me/+234903598782" class="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                <img src="whatsapp.jpeg" alt="WhatsApp" class="w-25 h-25">
+                            </a>
+                            <a href="https://www.linkedin.com/in/michael-adedamola-ogunbiyi-1733ba372?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            </a>
+                            <a href="https://github.com/OgunbiyiMichael1" class="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="lg:col-span-2 reveal-right">
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-200 dark:border-slate-700">
+                        <!-- Success Message -->
+                        <div id="successMessage" class="success-message bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-xl mb-6">
+                            <h4 class="text-xl font-bold mb-2">🎉 Message Sent!</h4>
+                            <p>Thank you for reaching out. I'll get back to you within 24 hours.</p>
+                        </div>
+                        
+                        <form id="contactForm" action="https://formspree.io/f/xbdzojql"
+  method="POST">
+                            <div class="grid sm:grid-cols-2 gap-6 mb-6">
+                                <div class="form-group">
+                                    <label class="block font-semibold mb-2" for="firstName">First Name</label>
+                                    <input type="text" id="firstName" name="firstName" class="form-input w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl transition-colors" placeholder="John" required>
+                                    <span class="form-error text-red-500 text-sm mt-1">Please enter your first name</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="block font-semibold mb-2" for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" name="lastName" class="form-input w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl transition-colors" placeholder="Doe" required>
+                                    <span class="form-error text-red-500 text-sm mt-1">Please enter your last name</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-6">
+                                <label class="block font-semibold mb-2" for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl transition-colors" placeholder="john@example.com" required>
+                                <span class="form-error text-red-500 text-sm mt-1">Please enter a valid email</span>
+                            </div>
+                            
+                            <div class="form-group mb-6">
+                                <label class="block font-semibold mb-2" for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" class="form-input w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl transition-colors" placeholder="Project Inquiry" required>
+                                <span class="form-error text-red-500 text-sm mt-1">Please enter a subject</span>
+                            </div>
+                            
+                            <div class="form-group mb-6">
+                                <label class="block font-semibold mb-2" for="message">Message</label>
+                                <textarea id="message" name="message" class="form-textarea w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl transition-colors min-h-[150px] resize-none" placeholder="Tell me about your project..." required></textarea>
+                                <span class="form-error text-red-500 text-sm mt-1">Please enter your message</span>
+                            </div>
+                            
+                            <button type="submit" id="submitBtn" class="btn-submit relative w-full px-8 py-4 gradient-bg text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-indigo-500/30 transition-all flex items-center justify-center gap-2">
+                                <span class="btn-spinner absolute w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                                <span class="btn-text">Send Message</span>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <a href="#" class="text-2xl font-bold flex items-center gap-2 mb-4">
+                        <img src="mike logo.png" alt="Michael Ogunbiyi Logo" class="w-10 h-10">
+                        Michael Ogunbiyi
+                    </a>
+                    <p class="text-slate-400 max-w-md">Frontend developer passionate about creating beautiful, responsive, and user-friendly web experiences. Let's build something amazing together.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-slate-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-slate-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="#skills" class="text-slate-400 hover:text-white transition-colors">Skills</a></li>
+                        <li><a href="#projects" class="text-slate-400 hover:text-white transition-colors">Projects</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#contact" class="text-slate-400 hover:text-white transition-colors">Get in Touch</a></li>
+                        <li><a href="mailto:mogunbiyi2010@gmail.com" class="text-slate-400 hover:text-white transition-colors">mogunbiyi2010@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-sm">© <span id="currentYear"></span> Michael Ogunbiyi. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="https://wa.me/+234903598782" class="w-10 h-10 bg-slate-700 dark:bg-slate-700 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                <img src="https://www.svgrepo.com/show/452133/whatsapp.svg" alt="WhatsApp" class="w-5 h-5">
+                    </a>
+                    <a href="https://www.linkedin.com/in/michael-adedamola-ogunbiyi-1733ba372?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="w-10 h-10 bg-slate-700 dark:bg-slate-700 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://github.com/OgunbiyiMichael1" class="w-10 h-10 bg-slate-700 dark:bg-slate-700 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button id="scrollTop" class="scroll-top fixed bottom-6 right-6 w-12 h-12 gradient-bg text-white rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all z-50 flex items-center justify-center" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script>
+        // ============================================
+        // VANILLA JAVASCRIPT - PERSONAL PORTFOLIO
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // ============================================
+            // DARK MODE TOGGLE with localStorage
+            // ============================================
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            
+            // Check saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                html.classList.toggle('dark', savedTheme === 'dark');
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                html.classList.add('dark');
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                html.classList.toggle('dark');
+                const isDark = html.classList.contains('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+
+            // ============================================
+            // MOBILE MENU TOGGLE
+            // ============================================
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+            function openMobileMenu() {
+                mobileMenuBtn.classList.add('active');
+                navLinks.classList.add('active');
+                mobileOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            }
+
+            function closeMobileMenuFn() {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+
+            mobileMenuBtn.addEventListener('click', function() {
+                if (navLinks.classList.contains('active')) {
+                    closeMobileMenuFn();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            closeMobileMenu.addEventListener('click', closeMobileMenuFn);
+            mobileOverlay.addEventListener('click', closeMobileMenuFn);
+
+            // Close menu on link click
+            document.querySelectorAll('.nav-link').forEach(function(link) {
+                link.addEventListener('click', closeMobileMenuFn);
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeMobileMenuFn();
+            });
+
+            // ============================================
+            // NAVBAR SCROLL EFFECT
+            // ============================================
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                }
+            });
+
+            // ============================================
+            // ACTIVE NAVIGATION STATE
+            // ============================================
+            const sections = document.querySelectorAll('section[id]');
+            const navLinksList = document.querySelectorAll('.nav-link');
+            
+            function updateActiveNav() {
+                const scrollPosition = window.scrollY + 100;
+                
+                sections.forEach(function(section) {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navLinksList.forEach(function(link) {
+                            link.classList.remove('active');
+                            if (link.getAttribute('data-section') === sectionId) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateActiveNav);
+
+            // ============================================
+            // FAQ ACCORDION - COLLAPSE/EXTEND
+            // ============================================
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(function(item) {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', function() {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all items first
+                    faqItems.forEach(function(otherItem) {
+                        otherItem.classList.remove('active');
+                    });
+                    
+                    // Toggle current item (open if was closed, keep closed if was open)
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // ============================================
+            // CONTACT FORM VALIDATION
+            // ============================================
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            
+            contactForm.addEventListener('submit', function() {
+                
+                // Reset errors
+                document.querySelectorAll('.form-group').forEach(function(group) {
+                    group.classList.remove('error');
+                });
+                
+                let isValid = true;
+                const formData = {};
+                
+                // Validate fields
+                const fields = ['firstName', 'lastName', 'email', 'subject', 'message'];
+                
+                fields.forEach(function(fieldName) {
+                    const field = document.getElementById(fieldName);
+                    const value = field.value.trim();
+                    formData[fieldName] = value;
+                    
+                    if (!value) {
+                        field.closest('.form-group').classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Email validation
+                    if (fieldName === 'email' && value) {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(value)) {
+                            field.closest('.form-group').classList.add('error');
+                            isValid = false;
+                        }
+                    }
+                });
+                
+                if (isValid) {
+                    // Show loading
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+                    
+                    // Simulate submission
+                    setTimeout(function() {
+                        console.log('Form Submitted!');
+                        console.log('Form Data:', formData);
+                        console.log('Time:', new Date().toLocaleString());
+                        
+                        // Show success
+                        successMessage.classList.add('show');
+                        contactForm.reset();
+                        
+                        // Reset button
+                        submitBtn.classList.remove('loading');
+                        submitBtn.disabled = false;
+                        
+                        // Hide success after 5s
+                        setTimeout(function() {
+                            successMessage.classList.remove('show');
+                        }, 5000);
+                        
+                        // Scroll to message
+                        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 1500);
+                }
+            });
+            
+            // Real-time validation
+            document.querySelectorAll('.form-input, .form-textarea').forEach(function(input) {
+                input.addEventListener('input', function() {
+                    this.closest('.form-group').classList.remove('error');
+                });
+            });
+
+            // ============================================
+            // SCROLL TO TOP
+            // ============================================
+            const scrollTopBtn = document.getElementById('scrollTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ============================================
+            // HERO PARTICLES
+            // ============================================
+            const particlesContainer = document.getElementById('heroParticles');
+            
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+
+            // ============================================
+            // SMOOTH SCROLL
+            // ============================================
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navHeight = navbar.offsetHeight;
+                        const targetPosition = targetElement.offsetTop - navHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // ============================================
+            // CONSOLE WELCOME
+            // ============================================
+            console.log('%c👋 Hey there! Welcome to my portfolio!', 'font-size: 20px; font-weight: bold; color: #6366f1;');
+            console.log('%cBuilt with HTML, CSS, JavaScript, React & Tailwind CSS', 'font-size: 14px; color: #ec4899;');
+        });
+
+        // ============================================
+        // SCREENSHOT MODAL FUNCTIONS
+        // ============================================
+        function openScreenshot(imageUrl, title) {
+            const modal = document.getElementById('screenshotModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            modalImage.src = imageUrl;
+            modalTitle.textContent = title;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeScreenshot() {
+            const modal = document.getElementById('screenshotModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on background click
+        document.getElementById('screenshotModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeScreenshot();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeScreenshot();
+            }
+        });
+
+        let currentYear = new Date().getFullYear();
+        document.getElementById('currentYear').textContent = currentYear;
+    </script>
+</body>
+</html>
